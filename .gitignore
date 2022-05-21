@@ -8,12 +8,5 @@ Thumbs.db
 desktop.ini
 
 # Exclude system directories and files
-/.composer/*
-/.cache/*
 /.idea/*
-/.ssh/*
 /.npm/*
-/_dev/*
-/_test/*
-/_deny/*
-/_html/*

@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Main;
 
 
-class Iblock
+class IBlock
 {
 
     /*
      *  IBLOCK getlist D7 style
      */
-    public function IBD7_GetList($arParams){
+    public function getList($arParams){
         if(isset($arParams['order'])){
             $arOrder = $arParams['order'];
         }else{
