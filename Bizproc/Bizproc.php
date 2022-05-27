@@ -1,18 +1,31 @@
 <?php
 
-namespace App/B24;
+namespace App\B24;
 
 class Bizproc
 {
 
-    function addWorkflow($documentId, $templateId){
+    public function getWorkflows($iblockId, $documentId)
+    {
+        \Bitrix\Main\Loader::includeModule('crm');
+        \Bitrix\Main\Loader::includeModule('bizproc');
+        \Bitrix\Main\Loader::includeModule('workflow');
+
+        $docType = \BizProcDocument::generateDocumentComplexType("bitrix_processes", $iblockId);
+        $docId = \BizProcDocument::getDocumentComplexId("bitrix_processes", $documentId);
+        return \CBPDocument::GetDocumentStates($docType, $docId);
+    }
+
+    function addWorkflow($documentId, $templateId)
+    {
         \CModule::IncludeModule("bizproc");
 
         $workflowId = \CBPDocument::StartWorkflow(c, ["lists", "BizprocDocument", $documentId], [], $arErrorsTmp);
         return ['workflowId' => $workflowId, 'errors' => $arErrorsTmp];
     }
 
-    function deleteWorkflow($workflowId, $iblockType, $itemId){
+    function deleteWorkflow($workflowId, $iblockType, $itemId)
+    {
         \CModule::IncludeModule("lists");
         \CModule::IncludeModule("bizproc");
 
@@ -27,14 +40,12 @@ class Bizproc
         }
     }
 
-    public function getWorkflows($iblockId, $documentId){
-        \Bitrix\Main\Loader::includeModule('crm');
-        \Bitrix\Main\Loader::includeModule('bizproc');
-        \Bitrix\Main\Loader::includeModule('workflow');
-
-        $docType = \BizProcDocument::generateDocumentComplexType("bitrix_processes", $iblockId);
-        $docId = \BizProcDocument::getDocumentComplexId("bitrix_processes", $documentId);
-        return \CBPDocument::GetDocumentStates($docType, $docId);
+    function startWorkflow($docID, $tmpID)
+    {
+        CModule::IncludeModule("bizproc");
+        $CBPDocument = new \CBPDocument();
+        $wfID = $CBPDocument::StartWorkflow($tmpID, ["lists", "BizprocDocument", $docID], [], []);
+        return $wfID;
     }
 
     public function getWorkflowTasks($iblockId, $documentId, $userId)

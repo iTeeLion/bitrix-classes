@@ -2,7 +2,7 @@
 
 namespace App\B24;
 
-class RestApiB24
+class RestApi
 {
 
     protected $hookUrl;

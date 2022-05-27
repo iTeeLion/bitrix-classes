@@ -8,7 +8,8 @@ namespace App;
 class Sale
 {
 
-    public function getCurrentItemQuantity(){
+    public function getCurrentItemQuantity()
+    {
         $basket = \Bitrix\Sale\Basket::loadItemsForFUser(
             \Bitrix\Sale\Fuser::getId(),
             \Bitrix\Main\Context::getCurrent()->getSite()
@@ -22,7 +23,8 @@ class Sale
         return $qtys;
     }
 
-    public function getProductOrdersCountByUser($userId, $productId, $successOrderedStatuses = ['F']){
+    public function getProductOrdersCountByUser($userId, $productId, $successOrderedStatuses = ['F'])
+    {
         \Bitrix\Main\Loader::includeModule('sale');
 
         $fUserId = \Bitrix\Sale\Fuser::getIdByUserId($userId);
@@ -55,7 +57,8 @@ class Sale
         }
     }
 
-    public function addToBasket($productId, $qty){
+    public function addToBasket($productId, $qty)
+    {
         $basket = \Bitrix\Sale\Basket::loadItemsForFUser(
             \Bitrix\Sale\Fuser::getId(),
             \Bitrix\Main\Context::getCurrent()->getSite()

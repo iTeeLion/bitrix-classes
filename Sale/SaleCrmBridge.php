@@ -3,7 +3,7 @@
 namespace App;
 
 
-class BridgeSaleCrm
+class SaleCrmBridge
 {
 
     private $defaultAssignedById = 86;
@@ -20,11 +20,13 @@ class BridgeSaleCrm
 
     private $deliveryProductId = 21714;
 
-    public function getRelationShopAndPortalStages(){
+    public function getRelationShopAndPortalStages()
+    {
         return $this->arRelationShopAndPortalStages;
     }
 
-    public function OrderDealDeliveryRel($deliveryId) {
+    public function OrderDealDeliveryRel($deliveryId) 
+    {
         switch ($deliveryId) {
             case '64':
                 return 27;
@@ -35,7 +37,8 @@ class BridgeSaleCrm
         }
     }
 
-    public function OrderDealPaymentRel($paymentId) {
+    public function OrderDealPaymentRel($paymentId) 
+    {
         switch ($paymentId) {
             case '9':
                 return 29;
@@ -52,7 +55,8 @@ class BridgeSaleCrm
      * @param $trigger
      * @param $data
      */
-    public function UpdateSaleAndCrmRelatedEntities($trigger, $data){
+    public function UpdateSaleAndCrmRelatedEntities($trigger, $data)
+    {
         if(!$GLOBALS['UPDATE_SALE_AND_CRM_RELATED_ENTITIES']){
             $GLOBALS['UPDATE_SALE_AND_CRM_RELATED_ENTITIES'] = true;
             //ob_start(); vardmp($trigger); vardmp($data); $ob=ob_get_clean();
@@ -83,7 +87,8 @@ class BridgeSaleCrm
      * @param $data
      * @throws \Bitrix\Main\LoaderException
      */
-    private function UpdateSaleAndCrmRelatedEntities_byOrder($data){
+    private function UpdateSaleAndCrmRelatedEntities_byOrder($data)
+    {
         // Prepare
         \Bitrix\Main\Loader::includeModule('sale');
         \Bitrix\Main\Loader::includeModule('crm');
@@ -235,7 +240,8 @@ class BridgeSaleCrm
      * @param $arProducts
      * @return array
      */
-    public function prepareDealProductsToMd($arProducts) {
+    public function prepareDealProductsToMd($arProducts) 
+    {
         $arProductsMD = [];
         foreach ($arProducts as $arProduct) {
             $arProductsMD[] = [
@@ -260,7 +266,8 @@ class BridgeSaleCrm
      * @throws \Bitrix\Main\ArgumentNullException
      * @throws \Bitrix\Main\ArgumentOutOfRangeException
      */
-    private function UpdateSaleAndCrmRelatedEntities_byDeal($arFields){
+    private function UpdateSaleAndCrmRelatedEntities_byDeal($arFields)
+    {
         // Prepare
         \Bitrix\Main\Loader::includeModule('sale');
         \Bitrix\Main\Loader::includeModule('crm');
@@ -310,7 +317,8 @@ class BridgeSaleCrm
      *
      * @param $arFields
      */
-    private function UpdateSaleAndCrmRelatedEntities_byDealProducts($arFields){
+    private function UpdateSaleAndCrmRelatedEntities_byDealProducts($arFields)
+    {
         // Prepare
         \Bitrix\Main\Loader::includeModule('sale');
         \Bitrix\Main\Loader::includeModule('crm');
@@ -396,7 +404,8 @@ class BridgeSaleCrm
      * Update related by invoice
      *
      */
-    private function UpdateSaleAndCrmRelatedEntities_byInvoice($arFields){
+    private function UpdateSaleAndCrmRelatedEntities_byInvoice($arFields)
+    {
         if($arFields['STATUS_ID']){
             // Get invoice
             $orderIdPropName = 'UF_CRM_1547635648';
