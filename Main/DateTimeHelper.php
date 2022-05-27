@@ -1,70 +1,68 @@
 <?php
 
-
 namespace App\Main;
-
 
 class DateTimeHelper
 {
 
-    // get day of week by number
-    public static function getDayOfWeek($d, $l = 'ru', $s = 0): string
+    // Get day of week by number
+    public static function getDayOfWeek(int $dayNum, string $lang = 'ru', int $wordLength = 0): string
     {
-        $a = array(
-            'en' => array(
-                array('Sun', 'Sunday'), array('Mon', 'Monday'), array('Tue', 'Tuesday'),
-                array('Wed', 'Wednesday'), array('Thur', 'Thursday'), array('Fri', 'Friday'),
-                array('Sat', 'Saturday'),
-            ),
-            'ru' => array(
-                array('Вс', 'Воскресенье'), array('Пн', 'Понедельник'), array('Вт', 'Вторник'),
-                array('Ср', 'Среда'), array('Чт', 'Четверг'), array('Пт', 'Пятница'),
-                array('Сб', 'Суббота'),
-            ),
-        );
-        return $a[$l][$d][$s];
+        $arData = [
+            'en' => [
+                ['Sun', 'Sunday'], ['Mon', 'Monday'], ['Tue', 'Tuesday'],
+                ['Wed', 'Wednesday'], ['Thur', 'Thursday'], ['Fri', 'Friday'],
+                ['Sat', 'Saturday'],
+            ],
+            'ru' => [
+                ['Вс', 'Воскресенье'], ['Пн', 'Понедельник'], ['Вт', 'Вторник'],
+                ['Ср', 'Среда'], ['Чт', 'Четверг'], ['Пт', 'Пятница'],
+                ['Сб', 'Суббота'],
+            ],
+        ];
+        return (string)$arData[$lang][$dayNum][$wordLength];
     }
 
-    // get month name by number
-    public static function getMonthName($m, $p = []): string
+    // Get month name by number
+    public static function getMonthName(int $monthNum, $arOptions = []): string
     {
-        if (!isset($p['lang'])) {
-            $p['lang'] = 'ru';
+        if (!isset($arOptions['lang'])) {
+            $arOptions['lang'] = 'ru';
         }
-        if (!isset($p['form'])) {
-            $p['form'] = 1;
+        if (!isset($arOptions['format'])) {
+            $arOptions['format'] = 1;
         }
-        $a = array(
-            'en' => array(
-                array('Jan', 'January'),
-                array('Feb', 'February'),
-                array('Mar', 'March'),
-                array('Apr', 'April'),
-                array('May', 'May'),
-                array('Jun', 'June'),
-                array('Jul', 'July'),
-                array('Aug', 'August'),
-                array('Sep', 'September'),
-                array('Oct', 'October'),
-                array('Nov', 'November'),
-                array('Dec', 'December'),
-            ),
-            'ru' => array(
-                array('Янв', 'Январь', 'Января', 'Январе'),
-                array('Фев', 'Февраль', 'Февраля', 'Феврале'),
-                array('Мар', 'Март', 'Марта', 'Марте'),
-                array('Апр', 'Апрель', 'Апреля', 'Апреле'),
-                array('Май', 'Май', 'Мая', 'Мае'),
-                array('Июн', 'Июнь', 'Июня', 'Июне'),
-                array('Июл', 'Июль', 'Июля', 'Июле'),
-                array('Авг', 'Август', 'Августа', 'Августе'),
-                array('Сен', 'Сентябрь', 'Сентября', 'Сентябре'),
-                array('Окт', 'Октябрь', 'Октября', 'Октябре'),
-                array('Ноя', 'Ноябрь', 'Ноября', 'Ноябре'),
-                array('Дек', 'Декабрь', 'Декабря', 'Декабре'),
-            ),
-        );
-        return $a[$p['lang']][$m][$p['form']];
+        $arData = [
+            'en' => [
+                ['Jan', 'January'],
+                ['Feb', 'February'],
+                ['Mar', 'March'],
+                ['Apr', 'April'],
+                ['May', 'May'],
+                ['Jun', 'June'],
+                ['Jul', 'July'],
+                ['Aug', 'August'],
+                ['Sep', 'September'],
+                ['Oct', 'October'],
+                ['Nov', 'November'],
+                ['Dec', 'December'],
+            ],
+            'ru' => [
+                ['Янв', 'Январь', 'Января', 'Январе'],
+                ['Фев', 'Февраль', 'Февраля', 'Феврале'],
+                ['Мар', 'Март', 'Марта', 'Марте'],
+                ['Апр', 'Апрель', 'Апреля', 'Апреле'],
+                ['Май', 'Май', 'Мая', 'Мае'],
+                ['Июн', 'Июнь', 'Июня', 'Июне'],
+                ['Июл', 'Июль', 'Июля', 'Июле'],
+                ['Авг', 'Август', 'Августа', 'Августе'],
+                ['Сен', 'Сентябрь', 'Сентября', 'Сентябре'],
+                ['Окт', 'Октябрь', 'Октября', 'Октябре'],
+                ['Ноя', 'Ноябрь', 'Ноября', 'Ноябре'],
+                ['Дек', 'Декабрь', 'Декабря', 'Декабре'],
+            ],
+        ];
+        return $arData[$arOptions['lang']][$monthNum][$arOptions['format']];
     }
 
 }

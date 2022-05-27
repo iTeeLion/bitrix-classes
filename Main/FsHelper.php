@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Main;
-
 
 class FsHelper
 {
 
-    // recursive directory deleting
+    // Recursive directory deleting
     public static function rmDirEx(string $dirPath): bool
     {
         if (!file_exists($dirPath)) return true;
@@ -24,15 +22,15 @@ class FsHelper
         self::rmdirEX($dirPath);
     }
 
-    //show file in viewcontent pos
-    public static function addViewContentFromFile($spot, $filePath, $pos): void
+    // Show file in viewcontent position
+    public static function addViewContentFromFile($spot, $filePath, $positionName): void
     {
         global $APPLICATION;
         ob_start();
         include($filePath);
         $content = ob_get_contents();
         ob_end_clean();
-        $APPLICATION->AddViewContent($spot, $content, $pos);
+        $APPLICATION->AddViewContent($spot, $content, $positionName);
     }
 
 }

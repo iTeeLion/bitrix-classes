@@ -1,42 +1,42 @@
 <?php
 
-
 namespace App\Main;
-
 
 class FormatHelper
 {
 
-    // format int num
-    public static function intNum($num)
+    // Format int num
+    public static function num2int($num): string
     {
-        return number_format($num, 0, '', '');
+        return (string)number_format($num, 0, '', '');
     }
 
-    // format float num
-    public static function floatNum($num)
+    // Format float num
+    public static function num2float($num): string
     {
-        return number_format($num, 2, '.', '');
+        return (string)number_format($num, 2, '.', '');
     }
 
-    // format float num \w spaces
-    public static function floatNumForm($num)
+    // Format float num \w spaces
+    public static function num2spacedFloat($num): string
     {
-        return number_format($num, 2, '.', ' ');
+        return (string)number_format($num, 2, '.', ' ');
     }
 
-    // format phone
-    public static function formatPhoneCall($phone): string
+    // Format phone for call
+    public static function phone2call($phone): string
     {
         return preg_replace('/[^0-9\+]/u', '', $phone);
     }
 
-    public static function formatPhoneOnlyDigits($phone): string
+    // Format phone, only digits
+    public static function phoneOnlyDigits($phone): string
     {
         return preg_replace('/[^0-9]/u', '', $phone);
     }
 
-    public static function formatPhoneInternational($phone): string
+    // Format phone, international standart
+    public static function phoneInternational($phone): string
     {
         $phone = self::formatPhoneOnlyDigits($phone);
         if (mb_strlen($phone) > 9) {
@@ -52,7 +52,8 @@ class FormatHelper
         return $phone;
     }
 
-    public static function formatPhoneMask($phone): string
+    // Format phone with mask (spaces, brackets, etc.)
+    public static function phoneMask($phone): string
     {
         $phone = self::formatPhoneCall($phone);
         $phoneLength = mb_strlen($phone);
@@ -92,8 +93,8 @@ class FormatHelper
         return $phoneForm;
     }
 
-    // prepare url as array
-    public static function urlAsArray($url): array
+    // Parse url as array
+    public static function urlAsArray(string $url): array
     {
         $url = explode('/', $url);
         if (!$url[0]) {
@@ -105,10 +106,10 @@ class FormatHelper
         return $url;
     }
 
-    // translite text
-    public static function translite($s): string
+    // Translite text
+    public static function translite(string $str): string
     {
-        $a = array(
+        $a = [
             'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd',
             'е' => 'e', 'ё' => 'e', 'ж' => 'zh', 'з' => 'z', 'и' => 'i',
             'й' => 'y', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n',
@@ -116,24 +117,24 @@ class FormatHelper
             'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch',
             'ш' => 'sh', 'щ' => 'sch', 'ь' => '', 'ы' => 'y', 'ъ' => '',
             'э' => 'e', 'ю' => 'yu', 'я' => 'ya',
-        );
-        $s = mb_strtolower($s);
-        $s = strtr($s, $a);
-        $s = preg_replace('~[^-a-z0-9_]+~u', '_', $s);
-        $s = trim($s, "_");
-        return $s;
+        ];
+        $str = mb_strtolower($str);
+        $str = strtr($str, $a);
+        $str = preg_replace('~[^-a-z0-9_]+~u', '_', $str);
+        $str = trim($str, "_");
+        return $str;
     }
 
-    // declination by number ['%d скрипт', '%d скрипта', '%d скриптов']
-    public static function declinationByNumber($number, $titles)
+    // Declination by number ['%d скрипт', '%d скрипта', '%d скриптов']
+    public static function declinationByNumber($number, array $arOptions): string
     {
         $cases = array(2, 0, 1, 1, 1, 2);
-        $format = $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
-        return sprintf($format, $number);
+        $format = $arOptions[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
+        return (string)sprintf($format, $number);
     }
 
-    // change url param
-    public static function replaceUrlQueryValue($url, $var, $val)
+    // Change url param
+    public static function replaceUrlQueryValue(string $url, $var, $val): string
     {
         $arUrl = parse_url($url);
         if ($arUrl['query']) {

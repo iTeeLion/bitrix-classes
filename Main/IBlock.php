@@ -2,14 +2,14 @@
 
 namespace App\Main;
 
-
 class IBlock
 {
 
-    /*
-     *  IBLOCK getlist D7 style
-     */
-    public function getList($arParams){
+    // IBLOCK getlist D7 style throught legacy implementation
+    public function getList(array $arParams): array
+    {
+        $arElements = [];
+
         if(isset($arParams['order'])){
             $arOrder = $arParams['order'];
         }else{
@@ -39,7 +39,6 @@ class IBlock
         $arSelect[] = 'ID';
         $CIBlockElement = new \CIBlockElement();
         $dbRes = $CIBlockElement::GetList($arOrder, $arFilter, $arGroupBy, $arNav, $arSelect);
-        $arElements = [];
         while ($item = $dbRes->GetNextElement()) {
             $arElement = $item->GetFields();
             $arElement['PROPS'] = $item->GetProperties();
@@ -51,6 +50,7 @@ class IBlock
             }
             $arElements[$arElement['ID']] = $arElement;
         }
+
         return $arElements;
     }
 

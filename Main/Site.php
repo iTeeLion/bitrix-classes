@@ -2,15 +2,18 @@
 
 namespace App\Main;
 
+use \App\Main\Settings;
 
 class Site
 {
 
-    public function getContactsInfo($ID){
+    // Get contacts info from IB
+    public function getContactsInfo(int $id): array
+    {
         global $BXS;
         $arContacts = Array();
         $arOrder = Array('SORT' => 'ASC');
-        $arFilter = Array('IBLOCK_ID' => $BXS->IB_CONTACTS, 'ID' => $ID);
+        $arFilter = Array('IBLOCK_ID' => Settings::IB_CONTACTS, 'ID' => $id);
         $arGroupBy = false;
         $arNav = false;
         $arSelect = Array('ID', 'IBLOCK_ID', 'NAME', 'PROPERTY_EMAILS', 'PROPERTY_PHONES', 'PROPERTY_ADDRESS_PROD', 'PROPERTY_SOCIAL_VK', 'PROPERTY_SOCIAL_FB');

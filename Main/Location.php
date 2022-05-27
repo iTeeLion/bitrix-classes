@@ -2,29 +2,27 @@
 
 namespace App\Main;
 
-
 class Location
 {
 
     public $currentLocationCookieName = 'CURRENT_LOCATION';
     public $defaultLocation = 'moscow';
 
-    public function getCurrentLocation(){
-        global $APPLICATION;
-
-        $location = $APPLICATION->get_cookie($this->currentLocationCookieName);
+    // Get location from cookie
+    public function getCurrentLocation(): string
+    {
+        $location = $GLOBALS['APPLICATION']->get_cookie($this->currentLocationCookieName);
         if(!$location){
             $location = $this->defaultLocation;
             $this->setCurrentLocation($location);
         }
-
-        return $location;
+        return (string)$location;
     }
 
-    public function setCurrentLocation($location){
-        global $APPLICATION;
-
-        $APPLICATION->set_cookie($this->currentLocationCookieName, $location);
+    // Set location to cookie
+    public function setCurrentLocation($location): void
+    {
+        $GLOBALS['APPLICATION']->set_cookie($this->currentLocationCookieName, $location);
     }
 
 }
