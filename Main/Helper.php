@@ -57,13 +57,15 @@ class Helper
     }
 
     // Log to file
-    public static function log2file($var, string $logname = 'common'): void
+    public static function log2file($var, string $logname = 'common', string $logDirPath = ''): void
     {
         $row = self::logBackTraceHeader();
         ob_start();
         var_dump($var);
         $row .= PHP_EOL . ob_get_clean() . PHP_EOL . PHP_EOL;
-        $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/logs';
+        if($logDirPath = ''){
+            $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/_logs';
+        }
         if (!is_dir($logDirPath)) {
             mkdir($logDirPath);
         }
@@ -72,11 +74,13 @@ class Helper
     }
 
     // Log row to file
-    public static function logRow2file(string $str, string $logname = 'common'): void
+    public static function logRow2file(string $str, string $logname = 'common', string $logDirPath = ''): void
     {
         $row = self::logBackTraceHeader();
         $row .= PHP_EOL . $str . PHP_EOL . PHP_EOL;
-        $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/logs';
+        if($logDirPath = ''){
+            $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/_logs';
+        }
         if (!is_dir($logDirPath)) {
             mkdir($logDirPath);
         }
