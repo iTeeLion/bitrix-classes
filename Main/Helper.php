@@ -63,7 +63,7 @@ class Helper
         ob_start();
         var_dump($var);
         $row .= PHP_EOL . ob_get_clean() . PHP_EOL . PHP_EOL;
-        if($logDirPath = ''){
+        if($logDirPath == ''){
             $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/_logs';
         }
         if (!is_dir($logDirPath)) {
@@ -78,7 +78,7 @@ class Helper
     {
         $row = self::logBackTraceHeader();
         $row .= PHP_EOL . $str . PHP_EOL . PHP_EOL;
-        if($logDirPath = ''){
+        if($logDirPath == ''){
             $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/_logs';
         }
         if (!is_dir($logDirPath)) {
