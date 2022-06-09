@@ -49,15 +49,39 @@ class Helper
         echo $row;
     }
 
-    // Log row to file
-    public static function log2file(string $str, string $logname = 'common'): void
+    // Log row date + backtrace
+    public static function logBackTraceHeader()
     {
-        $row = '[' . date('Y-m-d H:i:s') . '] ' . $str . PHP_EOL;
-        $logPath = $_SERVER['DOCUMENT_ROOT'] . '/local/logs/' . $logname . '.log';
-        if (!is_dir($logPath)) {
-            mkdir($logPath);
+        $backTrace = debug_backtrace();
+        return '[' . date('Y-m-d H:i:s') . '] ' . $backTrace[1]['file'] . ' [' . $backTrace[1]['line'] . ']';
+    }
+
+    // Log to file
+    public static function log2file($var, string $logname = 'common'): void
+    {
+        $row = self::logBackTraceHeader();
+        ob_start();
+        var_dump($var);
+        $row .= PHP_EOL . ob_get_clean() . PHP_EOL . PHP_EOL;
+        $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/logs';
+        if (!is_dir($logDirPath)) {
+            mkdir($logDirPath);
         }
-        file_put_contents($logPath, $row, FILE_APPEND);
+        $logFilePath = $logDirPath . '/' . $logname . '.log';
+        file_put_contents($logFilePath, $row, FILE_APPEND);
+    }
+
+    // Log row to file
+    public static function logRow2file(string $str, string $logname = 'common'): void
+    {
+        $row = self::logBackTraceHeader();
+        $row .= PHP_EOL . $str . PHP_EOL . PHP_EOL;
+        $logDirPath = $_SERVER['DOCUMENT_ROOT'] . '/upload/logs';
+        if (!is_dir($logDirPath)) {
+            mkdir($logDirPath);
+        }
+        $logFilePath = $logDirPath . '/' . $logname . '.log';
+        file_put_contents($logFilePath, $row, FILE_APPEND);
     }
 
     // Make log row
