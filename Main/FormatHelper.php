@@ -146,5 +146,18 @@ class FormatHelper
             return $arUrl['path'] . '?' . $var . '=' . $val;
         }
     }
+    
+    public static function jsSerializeArrayToPhpArray($jsSerializeArray)
+    {
+        $arData = [];
+        foreach ($jsSerializeArray as $arItem) {
+            if (preg_match('/^.*(\[])$/u', $arItem['name'])) {
+                $arData[$arItem['name']][] = $arItem['value'];
+            } else {
+                $arData[$arItem['name']] = $arItem['value'];
+            }
+        }
+        return $arData;
+    }
 
 }
