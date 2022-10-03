@@ -147,10 +147,10 @@ class FormatHelper
         }
     }
     
-    public static function jsSerializeArrayToPhpArray($jsSerializeArray)
+    public static function jsSerializedArrayToPhpArray($jsSerializedArray)
     {
         $arData = [];
-        foreach ($jsSerializeArray as $arItem) {
+        foreach ($jsSerializedArray as $arItem) {
             if (preg_match('/^.*(\[])$/u', $arItem['name'])) {
                 $arData[$arItem['name']][] = $arItem['value'];
             } else {
